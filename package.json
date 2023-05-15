@@ -1,0 +1,28 @@
+{
+  "name": "js-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "protoc -I=. *.proto --js_out=import_style=commonjs:.",
+    "build": "tsc",
+    "run-dev": "ts-node src/index.ts",
+    "run-test": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.5.7",
+    "@grpc/proto-loader": "^0.7.7",
+    "google-protobuf": "^3.20.0-rc.1",
+    "protobufjs": "^7.2.3",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.4",
+    "ts-node": "^10.9.1",
+    "ts-proto": "^1.147.2",
+    "typescript": "^5.0.4"
+  }
+}
