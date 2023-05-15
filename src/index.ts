@@ -1,36 +1,13 @@
-import { Server, ServerCredentials} from "@grpc/grpc-js";
-import { Observable } from "rxjs";
-import { IndraDBClientImpl, Vertex } from "./indradb"
-import { Empty } from "./google/protobuf/empty"
+import * as grpc from '@grpc/grpc-js';
+import { IndraDBClient } from './proto/indradb_grpc_pb';
+import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
-const vertex: Vertex = {id: {value: new Uint8Array(1)}, t: undefined}
+const host = '127.0.0.1:27615';
 
-const idb = new IndraDBClientImpl(
-  {
-    request(service, method, data) {
-      return Promise.resolve(new Uint8Array())
-    },
-    clientStreamingRequest(service, method, data) { 
-      return Promise.resolve(new Uint8Array())
-    },
-    serverStreamingRequest(service, method, data) { 
-      return new Observable<Uint8Array>
-    },
-    bidirectionalStreamingRequest(service, method, data) {
-      return new Observable<Uint8Array>
-    }
-  },
-);
-
-const server = new Server();
-idb.CreateVertex(vertex).then((resp) => {
+const client = new IndraDBClient(host, grpc.credentials.createInsecure());
+const empty_pb = new google_protobuf_empty_pb.Empty
+client.ping(empty_pb, (err: any, resp: any) => {
   console.log(resp)
 })
 
-
-
-
-// const ping = idb.Ping(Empty).then((resp) => {
-//   console.log(resp)
-// })
 

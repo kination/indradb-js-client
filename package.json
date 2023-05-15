@@ -5,24 +5,26 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "protoc -I=. *.proto --js_out=import_style=commonjs:.",
-    "build": "tsc",
-    "run-dev": "ts-node src/index.ts",
-    "run-test": "node src/index.js"
+    "package": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./proto --grpc_out=grpc_js:./proto --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I ./proto ./proto/*.proto",
+    "dev": "ts-node src/index.ts",
+    "run-test": "node src/index.js",
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@grpc/grpc-js": "^1.5.7",
-    "@grpc/proto-loader": "^0.7.7",
-    "google-protobuf": "^3.20.0-rc.1",
-    "protobufjs": "^7.2.3",
-    "rxjs": "^7.8.1"
-  },
   "devDependencies": {
+    "@types/google-protobuf": "^3.15.6",
     "@types/node": "^20.1.4",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
     "ts-node": "^10.9.1",
     "ts-proto": "^1.147.2",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.14",
+    "google-protobuf": "^3.21.2",
+    "grpc-tools": "^1.12.4",
+    "protoc-gen-js": "^3.21.2",
+    "ts-protoc-gen": "^0.15.1-pre.a71b34e"
   }
 }
